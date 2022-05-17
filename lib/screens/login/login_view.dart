@@ -1,5 +1,6 @@
 import 'package:fidigames/common/colors/colors.dart';
 import 'package:fidigames/common/styles/styles.dart';
+import 'package:fidigames/widgets/textFieldWidget.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
@@ -37,21 +38,15 @@ class LoginView extends StatelessWidget {
               const SizedBox(
                 height: 39.0,
               ),
-              TextField(
-                  style: const TextStyle(color: Colors.white),
-                  cursorColor: AppColor.primaryBackgroundColor,
-                  decoration: textFieldDecoration.copyWith(
-                    hintText: 'Email',
-                  )),
+              const ReusableTextField(
+                text: 'Email',
+              ),
               const SizedBox(
                 height: 20.0,
               ),
-              TextField(
-                  style: const TextStyle(color: Colors.white),
-                  cursorColor: AppColor.primaryBackgroundColor,
-                  decoration: textFieldDecoration.copyWith(
-                    hintText: 'Password',
-                  )),
+              const ReusableTextField(
+                text: 'Password',
+              ),
               const SizedBox(
                 height: 50.0,
               ),
