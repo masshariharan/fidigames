@@ -22,3 +22,13 @@ final buttonStyle = ButtonStyle(
         RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12),
     )));
+
+const textStyle = TextStyle(
+  color: AppColor.primaryTextColor,
+  fontWeight: FontWeight.w600,
+);
+
+const buttonTextStyle = TextStyle(
+  color: AppColor.buttonTextColor,
+  fontWeight: FontWeight.w600,
+);

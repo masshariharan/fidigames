@@ -1,3 +1,4 @@
+import 'package:fidigames/screens/fidigames_list.dart';
 import 'package:fidigames/screens/login/login_view.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginView(),
+      home: const FidigamesList(),
     );
   }
 }

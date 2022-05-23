@@ -1,69 +1,102 @@
-import 'package:fidigames/common/colors/colors.dart';
-import 'package:fidigames/common/styles/styles.dart';
-import 'package:fidigames/widgets/textFieldWidget.dart';
+import 'package:fidigames/api_services/user_login.dart';
+import 'package:fidigames/themes/colors/colors.dart';
+import 'package:fidigames/themes/styles/styles.dart';
+import 'package:fidigames/widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
   @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  final _formKey = GlobalKey<FormState>();
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  ApiService apiService = ApiService();
+
+  @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double textSize = MediaQuery.textScaleFactorOf(context);
+
     return Scaffold(
       backgroundColor: AppColor.primaryBackgroundColor,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 93.0,
-              ),
-              const Text(
-                'Fidigames',
-                style: TextStyle(
-                    color: AppColor.primaryTextColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 32),
-              ),
-              const SizedBox(
-                height: 123.0,
-              ),
-              const Text(
-                'Log In',
-                style: TextStyle(
-                    color: AppColor.primaryTextColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18),
-              ),
-              const SizedBox(
-                height: 39.0,
-              ),
-              const ReusableTextField(
-                text: 'Email',
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              const ReusableTextField(
-                text: 'Password',
-              ),
-              const SizedBox(
-                height: 50.0,
-              ),
-              ElevatedButton(
-                  onPressed: () {},
-                  style: buttonStyle,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ))
-            ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: height / 8.65,
+                ),
+                Text(
+                  'Fidigames',
+                  style: textStyle.copyWith(fontSize: textSize * 32),
+                ),
+                SizedBox(
+                  height: height / 5.83,
+                ),
+                Text(
+                  'Log In',
+                  style: textStyle.copyWith(fontSize: textSize * 18),
+                ),
+                SizedBox(
+                  height: height / 18.4,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width / 18),
+                  child: ReusableTextField(
+                    text: 'Email',
+                    controller: emailController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Enter the email';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: height / 35,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width / 18),
+                  child: ReusableTextField(
+                    text: 'Password',
+                    controller: passwordController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Enter the Password';
+                      } else if (value.length < 6) {
+                        return 'Password must be greater than 6 characters';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: height / 14.2,
+                ),
+                ReusableButton(
+                    text: 'Sign In',
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        apiService.userLogin(
+                            emailController.text, passwordController.text);
+                      }
+                    }),
+                SizedBox(
+                  height: height / 18,
+                )
+              ],
+            ),
           ),
         ),
       ),
