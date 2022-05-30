@@ -24,6 +24,7 @@ final buttonStyle = ButtonStyle(
     )));
 
 const textStyle = TextStyle(
+  fontFamily: 'Poppins',
   color: AppColor.primaryTextColor,
   fontWeight: FontWeight.w600,
 );
