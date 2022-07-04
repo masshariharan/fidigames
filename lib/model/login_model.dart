@@ -8,5 +8,3 @@ class LoginResponseModel {
     return LoginResponseModel(msg: json["msg"], apiKey: json["api-key"]);
   }
 }
-
-

@@ -1,11 +1,14 @@
 import 'package:fidigames/model/login_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
   String loginUrl = 'https://fidigamesapi.herokuapp.com/games/login';
 
-  void userLogin(String email, password) async {
+  dynamic data;
+  Future userLogin(String email, password) async {
     try {
       var response = await http.post(
         Uri.parse(loginUrl),
@@ -20,18 +23,18 @@ class ApiService {
       );
 
       if (response.statusCode == 200) {
+        data = LoginResponseModel.fromJson(jsonDecode(response.body));
 
-        var data = LoginResponseModel.fromJson(jsonDecode(response.body));
-
-        print(data.msg);
-        print(data.apiKey);
+        String token = data.apiKey;
+       
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('token', token);
+     
       } else {
-        print('failed');
+        Logger().wtf('failed');
       }
     } catch (e) {
-      print(e);
+      Logger().wtf(e);
     }
   }
 }
-
-
