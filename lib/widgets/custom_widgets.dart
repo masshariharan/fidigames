@@ -181,8 +181,8 @@ class _ReusableCardState extends State<ReusableCard> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: SizedBox(
-                        height: height / 9.9,
-                        width: height / 9.9,
+                        height: height / 8.9,
+                        width: width / 4.9,
                         child: widget.image),
                   ),
                 ),
@@ -455,61 +455,37 @@ class CountBox extends StatelessWidget {
     );
   }
 }
-// Center(
-// child: Text(
-// num!,
-// style: const TextStyle(color: AppColor.primaryTextColor),
-// ),
-// ),
 
-///GameAdd card
-// DropdownButtonHideUnderline(
-// child: DropdownButton2(
-// buttonDecoration: BoxDecoration(
-// color: AppColor.textFieldBackgrounColor,
-// //Border.all
-// borderRadius: BorderRadius.circular(10),
-// ),
-// icon: Padding(
-// padding: EdgeInsets.only(right: width / 18),
-// child: const Icon(
-// Icons.keyboard_arrow_down,
-// color: AppColor.primaryTextColor,
-// ),
-// ),
-// itemHeight: height / 14,
-// dropdownDecoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(14),
-// color: AppColor.textFieldBackgrounColor,
-// ),
-// hint: Padding(
-// padding: EdgeInsets.symmetric(horizontal: width / 18),
-// child: Text(
-// 'Choose the Category of game',
-// style: textStyle.copyWith(
-// fontWeight: FontWeight.w500,
-// fontSize: textSize * 13,
-// color: AppColor.primaryTextColor,
-// ),
-// ),
-// ),
-// items: items
-//     .map((item) => DropdownMenuItem(
-// value: item,
-// child: Padding(
-// padding: EdgeInsets.symmetric(horizontal: width / 18),
-// child: Text(
-// item,
-// style: textStyle.copyWith(
-// fontWeight: FontWeight.w500,
-// fontSize: textSize * 12,
-// color: AppColor.primaryTextColor,
-// ),
-// ),
-// )))
-// .toList(),
-// value: widget.value,
-// onChanged: (value) {
-// selectedValue = value as String;
-// },
-// )),
+class CountName extends StatelessWidget {
+  const CountName({Key? key, required this.textSize, required this.text})
+      : super(key: key);
+
+  final double textSize;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: textStyle.copyWith(
+          fontSize: textSize * 13, fontWeight: FontWeight.w400),
+    );
+  }
+}
+
+class HeadingText extends StatelessWidget {
+  const HeadingText({Key? key, required this.textSize, required this.text})
+      : super(key: key);
+
+  final double textSize;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: textStyle.copyWith(
+          fontSize: textSize * 12, fontWeight: FontWeight.w400),
+    );
+  }
+}

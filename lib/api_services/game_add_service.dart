@@ -16,37 +16,25 @@ class GameAddService {
       required String minP,
       required String maxP,
       required String category}) async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String token = prefs.getString('token')!;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token')!;
 
-      var response = await http.post(
-        Uri.parse(gameAddURL),
-        headers: {
-          'Content-Type': 'application/json',
-          'accept': 'application/json',
-          'api-key': token,
-        },
-        body: json.encode({
-          "game_name": gameName,
-          "game_description": description,
-          "game_image_url": imageURL,
-          "game_url": gameUrl,
-          "game_minp": minP,
-          "game_maxp": maxP,
-          "game_category": category,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        var data = GameAddModel.fromJson(jsonDecode(response.body));
-
-        Logger().wtf(data);
-      } else {
-        Logger().wtf('failed');
-      }
-    } catch (e) {
-      Logger().wtf(e);
-    }
+    await http.post(
+      Uri.parse(gameAddURL),
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': 'application/json',
+        'api-key': token,
+      },
+      body: json.encode({
+        "game_name": gameName,
+        "game_description": description,
+        "game_image_url": imageURL,
+        "game_url": gameUrl,
+        "game_minp": minP,
+        "game_maxp": maxP,
+        "game_category": category,
+      }),
+    );
   }
 }

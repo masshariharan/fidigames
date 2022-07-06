@@ -72,11 +72,7 @@ class _GamesAddViewState extends State<GamesAddView> {
                   SizedBox(
                     height: height / 29,
                   ),
-                  Text(
-                    'Name of the Game',
-                    style: textStyle.copyWith(
-                        fontSize: textSize * 12, fontWeight: FontWeight.w400),
-                  ),
+                  HeadingText(text: 'Name of the Game', textSize: textSize),
                   Padding(
                     padding: EdgeInsets.only(
                       top: height / 140,
@@ -97,11 +93,7 @@ class _GamesAddViewState extends State<GamesAddView> {
                   SizedBox(
                     height: height / 29,
                   ),
-                  Text(
-                    'Description',
-                    style: textStyle.copyWith(
-                        fontSize: textSize * 12, fontWeight: FontWeight.w400),
-                  ),
+                  HeadingText(text: 'Description', textSize: textSize),
                   Padding(
                     padding: EdgeInsets.only(
                       top: height / 140,
@@ -120,11 +112,7 @@ class _GamesAddViewState extends State<GamesAddView> {
                   SizedBox(
                     height: height / 29,
                   ),
-                  Text(
-                    'Game URL',
-                    style: textStyle.copyWith(
-                        fontSize: textSize * 12, fontWeight: FontWeight.w400),
-                  ),
+                  HeadingText(text: 'Game URL', textSize: textSize),
                   Padding(
                     padding: EdgeInsets.only(
                       top: height / 140,
@@ -145,11 +133,7 @@ class _GamesAddViewState extends State<GamesAddView> {
                   SizedBox(
                     height: height / 20,
                   ),
-                  Text(
-                    'Image URL',
-                    style: textStyle.copyWith(
-                        fontSize: textSize * 12, fontWeight: FontWeight.w400),
-                  ),
+                  HeadingText(text: 'Image URL', textSize: textSize),
                   Padding(
                     padding: EdgeInsets.only(
                       top: height / 140,
@@ -170,33 +154,19 @@ class _GamesAddViewState extends State<GamesAddView> {
                   SizedBox(
                     height: height / 20,
                   ),
-                  Text(
-                    'Players Count',
-                    style: textStyle.copyWith(
-                        fontSize: textSize * 12, fontWeight: FontWeight.w400),
-                  ),
+                  HeadingText(text: 'Players Count', textSize: textSize),
                   Padding(
                     padding: EdgeInsets.only(top: height / 36),
                     child: Row(
                       children: [
-                        Text(
-                          'Minimum Count',
-                          style: textStyle.copyWith(
-                              fontSize: textSize * 13,
-                              fontWeight: FontWeight.w400),
-                        ),
+                        CountName(text: 'Minimum Count', textSize: textSize),
                         CountBox(
                           controller: minCountController,
                         ),
                         SizedBox(
                           width: width / 15,
                         ),
-                        Text(
-                          'Miximum Count',
-                          style: textStyle.copyWith(
-                              fontSize: textSize * 13,
-                              fontWeight: FontWeight.w400),
-                        ),
+                        CountName(text: 'Maximum Count', textSize: textSize),
                         CountBox(
                           controller: maxCountController,
                         ),
@@ -206,11 +176,7 @@ class _GamesAddViewState extends State<GamesAddView> {
                   SizedBox(
                     height: height / 20,
                   ),
-                  Text(
-                    'Category',
-                    style: textStyle.copyWith(
-                        fontSize: textSize * 12, fontWeight: FontWeight.w400),
-                  ),
+                  HeadingText(text: 'Category', textSize: textSize),
                   SizedBox(
                     height: height / 14,
                     child: GameCategoryDropdown(
@@ -240,8 +206,6 @@ class _GamesAddViewState extends State<GamesAddView> {
                                             content: Text("can't empty"),
                                           ));
                                 } else {
-                                  // _showGameAddCard(context);
-
                                   gameAddService.gameAdd(
                                       gameName: gameNameController.text,
                                       description: descriptionController.text,
@@ -266,216 +230,3 @@ class _GamesAddViewState extends State<GamesAddView> {
     );
   }
 }
-
-// _getFromGallery() async {
-//   XFile? pickedFile = await ImagePicker().pickImage(
-//     source: ImageSource.gallery,
-//   );
-//   if (pickedFile != null) {
-//     setState(() {
-//       imageFile = File(pickedFile.path);
-
-//       image = imageFile!.path;
-
-//       Logger().wtf(image);
-//     });
-//   }
-// }
-
-// Future<void> _showGameAddCard(BuildContext context) async {
-//   return showDialog(
-//       context: context,
-//       builder: (_) => AlertDialog(
-//             backgroundColor: AppColor.textFieldBackgrounColor,
-//             contentPadding: const EdgeInsets.all(0),
-//             shape: const RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.all(Radius.circular(10))),
-//             content: Builder(
-//               builder: (context) {
-//                 // Get available height and width of the build area of this widget. Make a choice depending on the size.
-//                 var height = MediaQuery.of(context).size.height;
-//                 var width = MediaQuery.of(context).size.width;
-
-//                 double textSize = MediaQuery.textScaleFactorOf(context);
-//                 return SizedBox(
-//                   height: 160,
-//                   width: double.infinity,
-//                   child: Column(
-//                     children: [
-//                       Row(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           Column(
-//                             mainAxisAlignment: MainAxisAlignment.start,
-//                             crossAxisAlignment: CrossAxisAlignment.start,
-//                             children: [
-//                               Padding(
-//                                 padding: EdgeInsets.only(
-//                                     left: width / 24,
-//                                     top: height / 47,
-//                                     right: width / 24),
-//                                 child: ClipRRect(
-//                                   borderRadius: BorderRadius.circular(10),
-//                                   // child: SizedBox(
-//                                   //     height: height / 9.9,
-//                                   //     width: height / 9.9,
-//                                   //     child: Image.file(
-//                                   //       imageFile!,
-//                                   //       fit: BoxFit.cover,
-//                                   //     )
-//                                   //     ),
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                           Expanded(
-//                             child: Padding(
-//                               padding: EdgeInsets.only(
-//                                   top: height / 47,
-//                                   right: width / 24,
-//                                   bottom: height / 47),
-//                               child: Column(
-//                                 mainAxisAlignment: MainAxisAlignment.start,
-//                                 crossAxisAlignment: CrossAxisAlignment.start,
-//                                 children: [
-//                                   Text(gameNameController.text,
-//                                       style: textStyle.copyWith(
-//                                           fontWeight: FontWeight.w600,
-//                                           fontSize: textSize * 18)),
-//                                   SizedBox(height: height / 130),
-//                                   Text(descriptionController.text,
-//                                       maxLines: 2,
-//                                       style: textStyle.copyWith(
-//                                           fontSize: textSize * 10,
-//                                           fontStyle: FontStyle.normal,
-//                                           fontWeight: FontWeight.w300)),
-//                                   SizedBox(
-//                                     height: height / 180,
-//                                   ),
-//                                   Row(
-//                                     mainAxisAlignment:
-//                                         MainAxisAlignment.start,
-//                                     children: [
-//                                       Icon(
-//                                         Icons.person,
-//                                         color: AppColor.primaryTextColor,
-//                                         size: textSize * 15,
-//                                       ),
-//                                       SizedBox(
-//                                         width: height / 130,
-//                                       ),
-//                                       Text(
-//                                         '4 - 6 Players',
-//                                         style: textStyle.copyWith(
-//                                             fontSize: textSize * 12,
-//                                             fontWeight: FontWeight.w300),
-//                                       )
-//                                     ],
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                       Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                         children: [
-//                           ElevatedButton(
-//                               onPressed: () {},
-//                               style: ButtonStyle(
-//                                   side: MaterialStateProperty.all(
-//                                       const BorderSide(
-//                                           color: AppColor
-//                                               .buttonBackgroundColor)),
-//                                   backgroundColor: MaterialStateProperty.all(
-//                                       AppColor.primaryBackgroundColor),
-//                                   shape: MaterialStateProperty.all<
-//                                           RoundedRectangleBorder>(
-//                                       RoundedRectangleBorder(
-//                                     borderRadius: BorderRadius.circular(30),
-//                                   )),
-//                                   minimumSize: MaterialStateProperty.all(
-//                                       const Size(40, 30))),
-//                               child: Text(
-//                                 'Decline',
-//                                 style: textStyle.copyWith(
-//                                     fontWeight: FontWeight.w400,
-//                                     fontSize: 14,
-//                                     color: AppColor.buttonBackgroundColor),
-//                               )),
-//                           ElevatedButton(
-//                             onPressed: () {},
-//                             style: ButtonStyle(
-//                                 side: MaterialStateProperty.all(
-//                                     const BorderSide(
-//                                         color:
-//                                             AppColor.buttonBackgroundColor)),
-//                                 backgroundColor: MaterialStateProperty.all(
-//                                     AppColor.primaryBackgroundColor),
-//                                 shape: MaterialStateProperty.all<
-//                                         RoundedRectangleBorder>(
-//                                     RoundedRectangleBorder(
-//                                   borderRadius: BorderRadius.circular(30),
-//                                 )),
-//                                 minimumSize: MaterialStateProperty.all(
-//                                     const Size(40, 30))),
-//                             child: Text(
-//                               'Accept',
-//                               style: textStyle.copyWith(
-//                                   fontWeight: FontWeight.w400,
-//                                   fontSize: 14,
-//                                   color: AppColor.buttonBackgroundColor),
-//                             ),
-//                           ),
-//                           ElevatedButton(
-//                             onPressed: () {},
-//                             style: ButtonStyle(
-//                                 side: MaterialStateProperty.all(
-//                                     const BorderSide(
-//                                         color:
-//                                             AppColor.buttonBackgroundColor)),
-//                                 backgroundColor: MaterialStateProperty.all(
-//                                     AppColor.primaryBackgroundColor),
-//                                 shape: MaterialStateProperty.all<
-//                                         RoundedRectangleBorder>(
-//                                     RoundedRectangleBorder(
-//                                   borderRadius: BorderRadius.circular(30),
-//                                 )),
-//                                 minimumSize: MaterialStateProperty.all(
-//                                     const Size(10, 30))),
-//                             child: Text(
-//                               'Edit',
-//                               style: textStyle.copyWith(
-//                                   fontWeight: FontWeight.w400,
-//                                   fontSize: 14,
-//                                   color: AppColor.buttonBackgroundColor),
-//                             ),
-//                           ),
-//                         ],
-//                       )
-//                     ],
-//                   ),
-//                 );
-//               },
-//             ),
-//           ));
-// }
-
-// SizedBox(
-//   height: height / 20,
-// ),
-// imageFile == null
-//     ? ImagesUploadButton(
-//         onTap: () {
-//           _getFromGallery();
-//         },
-//       )
-//     : SizedBox(
-//         height: height / 9,
-//         width: width / 4,
-//         child: Image.file(
-//           imageFile!,
-//           fit: BoxFit.cover,
-//         ),
-//       ),

@@ -1,4 +1,3 @@
-
 import 'package:fidigames/api_services/user_login.dart';
 import 'package:fidigames/screens/fidigames_list.dart';
 import 'package:fidigames/themes/colors/colors.dart';
@@ -25,16 +24,14 @@ class _LoginViewState extends State<LoginView> {
 
   ApiService apiService = ApiService();
 
- 
-
   String? token;
   @override
   void initState() {
     super.initState();
-    loggedUser();
+    userLoggedIn();
   }
 
-  void loggedUser() async {
+  Future<void> userLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //token = prefs.getString('token')!;
 
@@ -44,6 +41,27 @@ class _LoginViewState extends State<LoginView> {
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => FidigamesList()));
+    }
+  }
+
+  Future login(String email, String password) async {
+    try {
+      await apiService.userLogin(emailController.text, passwordController.text);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => FidigamesList()));
+    } catch (error) {
+      if (error.toString() == "type 'Null' is not a subtype of type 'String'" ||
+          error.toString() ==
+              "Expected a value of type 'String', but got one of type 'Null'") {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: AppColor.primaryTextColor,
+            content: Text(
+              'Wrong Password',
+              style: TextStyle(color: AppColor.buttonBackgroundColor),
+            )));
+      }
     }
   }
 
@@ -116,14 +134,8 @@ class _LoginViewState extends State<LoginView> {
                     text: 'Sign In',
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        try {
-                          await apiService.userLogin(
-                              emailController.text, passwordController.text);
-
-                          Navigator.pushNamed(context, FidigamesList.id);
-                        } catch (e) {
-                          Logger().wtf(e);
-                        }
+                        await login(
+                            emailController.text, passwordController.text);
                       }
                     }),
                 SizedBox(

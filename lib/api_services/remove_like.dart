@@ -8,11 +8,10 @@ class RemoveLikeService {
   Future removeLike({required String likesCount, required String idNum}) async {
     String gameAddURL =
         'https://fidigamesapi.herokuapp.com/games/$idNum/removelike';
-    try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String token = prefs.getString('token')!;
 
-      var response = await http.delete(
+      await http.delete(
         Uri.parse(gameAddURL),
         headers: {
           'Content-Type': 'application/json',
@@ -22,15 +21,6 @@ class RemoveLikeService {
         body: json.encode({"game_likes_count": likesCount}),
       );
 
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
 
-        Logger().wtf(data);
-      } else {
-        Logger().wtf('failed');
-      }
-    } catch (e) {
-      Logger().wtf(e);
-    }
   }
 }
