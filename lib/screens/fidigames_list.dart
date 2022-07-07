@@ -95,104 +95,116 @@ class _FidigamesListState extends State<FidigamesList> {
                     height: height / 35.8,
                   ),
                   Expanded(
-                    child: ListView.builder(
-                        itemCount: selectedValue == null
-                            ? gamesData.length
-                            : categoryData.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          if (selectedValue == null) {
-                            return ReusableCard(
-                              image: Image.network(
-                                gamesData[index]['game_image_url'],
-                                fit: BoxFit.fill,
-                              ),
-                              title: gamesData[index]['game_name'],
-                              content: gamesData[index]['game_url'],
-                              n1: gamesData[index]['game_minp'],
-                              n2: gamesData[index]['game_maxp'],
-                              likesCount: gamesData[index]['game_likes_count'],
-                              iconWidget: IconButton(
-                                  onPressed: () {
-                                    if (gamesData[index]['game_likes_count'] <
-                                        1) {
-                                      setState(() {
-                                        addLikeService.addLike(
-                                            likesCount:
-                                                '${gamesData[index]['game_likes_count'] = gamesData[index]['game_likes_count'] + 1}',
-                                            idNum: '${gamesData[index]['id']}');
-                                      });
-                                    } else if (gamesData[index]
-                                            ['game_likes_count'] >
-                                        0) {
-                                      setState(() {
-                                        removeLikeService.removeLike(
-                                            likesCount:
-                                                '${gamesData[index]['game_likes_count'] - 1}',
-                                            idNum: '${gamesData[index]['id']}');
-                                      });
-                                    }
-                                  },
-                                  icon: Icon(
-                                    Icons.favorite,
-                                    size: textSize * 16,
-                                    color: gamesData[index]
-                                                ['game_likes_count'] ==
-                                            0
-                                        ? AppColor.primaryTextColor
-                                        : AppColor.buttonBackgroundColor,
-                                  )),
-                            );
-                          } else if (selectedValue != null) {
-                            return ReusableCard(
-                              image: Image.network(
-                                categoryData[index]['game_image_url'],
-                                fit: BoxFit.fill,
-                              ),
-                              title: categoryData[index]['game_name'],
-                              content: categoryData[index]['game_url'],
-                              n1: categoryData[index]['game_minp'],
-                              n2: categoryData[index]['game_maxp'],
-                              likesCount: categoryData[index]
-                                  ['game_likes_count'],
-                              iconWidget: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      if (categoryData[index]
-                                              ['game_likes_count'] <
-                                          1) {
-                                        addLikeService.addLike(
-                                            likesCount:
-                                                '${categoryData[index]['game_likes_count'] = categoryData[index]['game_likes_count'] + 1}',
-                                            idNum:
-                                                '${categoryData[index]['id']}');
-                                      } else if (categoryData[index]
-                                              ['game_likes_count'] >
-                                          0) {
-                                        removeLikeService.removeLike(
-                                            likesCount:
-                                                '${categoryData[index]['game_likes_count'] - 1}',
-                                            idNum:
-                                                '${categoryData[index]['id']}');
-                                      }
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.favorite,
-                                    size: textSize * 16,
-                                    color: categoryData[index]
-                                                ['game_likes_count'] ==
-                                            0
-                                        ? AppColor.primaryTextColor
-                                        : AppColor.buttonBackgroundColor,
-                                  )),
-                            );
-                          }
-                          return Center(
-                              child: Text(
+                    child: gamesData.isEmpty
+                        ? const Center(
+                            child: Text(
                             'No Data',
-                            style: textStyle.copyWith(fontSize: textSize * 18),
-                          ));
-                        }),
+                            style: textStyle,
+                          ))
+                        : ListView.builder(
+                            itemCount: selectedValue == null
+                                ? gamesData.length
+                                : categoryData.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              if (selectedValue == null) {
+                                return ReusableCard(
+                                  image: Image.network(
+                                    gamesData[index]['game_image_url'],
+                                    fit: BoxFit.fill,
+                                  ),
+                                  title: gamesData[index]['game_name'],
+                                  content: gamesData[index]['game_url'],
+                                  n1: gamesData[index]['game_minp'],
+                                  n2: gamesData[index]['game_maxp'],
+                                  likesCount: gamesData[index]
+                                      ['game_likes_count'],
+                                  iconWidget: IconButton(
+                                      onPressed: () {
+                                        if (gamesData[index]
+                                                ['game_likes_count'] <
+                                            1) {
+                                          setState(() {
+                                            addLikeService.addLike(
+                                                likesCount:
+                                                    '${gamesData[index]['game_likes_count'] = gamesData[index]['game_likes_count'] + 1}',
+                                                idNum:
+                                                    '${gamesData[index]['id']}');
+                                          });
+                                        } else if (gamesData[index]
+                                                ['game_likes_count'] >
+                                            0) {
+                                          setState(() {
+                                            removeLikeService.removeLike(
+                                                likesCount:
+                                                    '${gamesData[index]['game_likes_count'] - 1}',
+                                                idNum:
+                                                    '${gamesData[index]['id']}');
+                                          });
+                                        }
+                                      },
+                                      icon: Icon(
+                                        Icons.favorite,
+                                        size: textSize * 16,
+                                        color: gamesData[index]
+                                                    ['game_likes_count'] ==
+                                                0
+                                            ? AppColor.primaryTextColor
+                                            : AppColor.buttonBackgroundColor,
+                                      )),
+                                );
+                              }
+                              return selectedValue !=
+                                      categoryData[index]["game_category"]
+                                  ? const Center(
+                                      child: Text(
+                                      'No Data',
+                                      style: textStyle,
+                                    ))
+                                  : ReusableCard(
+                                      image: Image.network(
+                                        categoryData[index]['game_image_url'],
+                                        fit: BoxFit.fill,
+                                      ),
+                                      title: categoryData[index]['game_name'],
+                                      content: categoryData[index]['game_url'],
+                                      n1: categoryData[index]['game_minp'],
+                                      n2: categoryData[index]['game_maxp'],
+                                      likesCount: categoryData[index]
+                                          ['game_likes_count'],
+                                      iconWidget: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              if (categoryData[index]
+                                                      ['game_likes_count'] <
+                                                  1) {
+                                                addLikeService.addLike(
+                                                    likesCount:
+                                                        '${categoryData[index]['game_likes_count'] = categoryData[index]['game_likes_count'] + 1}',
+                                                    idNum:
+                                                        '${categoryData[index]['id']}');
+                                              } else if (categoryData[index]
+                                                      ['game_likes_count'] >
+                                                  0) {
+                                                removeLikeService.removeLike(
+                                                    likesCount:
+                                                        '${categoryData[index]['game_likes_count'] - 1}',
+                                                    idNum:
+                                                        '${categoryData[index]['id']}');
+                                              }
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.favorite,
+                                            size: textSize * 16,
+                                            color: categoryData[index]
+                                                        ['game_likes_count'] ==
+                                                    0
+                                                ? AppColor.primaryTextColor
+                                                : AppColor
+                                                    .buttonBackgroundColor,
+                                          )),
+                                    );
+                            }),
                   ),
                 ],
               ),

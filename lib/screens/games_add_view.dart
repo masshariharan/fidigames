@@ -77,18 +77,16 @@ class _GamesAddViewState extends State<GamesAddView> {
                     padding: EdgeInsets.only(
                       top: height / 140,
                     ),
-                    child: SizedBox(
-                        height: height / 14,
-                        child: ReusableTextField(
-                          controller: gameNameController,
-                          num: 1,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Enter the Game Name';
-                            }
-                            return null;
-                          },
-                        )),
+                    child: ReusableTextField(
+                      controller: gameNameController,
+                      num: 1,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Enter the Game Name';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                   SizedBox(
                     height: height / 29,
@@ -117,18 +115,16 @@ class _GamesAddViewState extends State<GamesAddView> {
                     padding: EdgeInsets.only(
                       top: height / 140,
                     ),
-                    child: SizedBox(
-                        height: height / 14,
-                        child: ReusableTextField(
-                          controller: gameURLController,
-                          num: 1,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Required Game URL';
-                            }
-                            return null;
-                          },
-                        )),
+                    child: ReusableTextField(
+                      controller: gameURLController,
+                      num: 1,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required Game URL';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                   SizedBox(
                     height: height / 20,
@@ -138,18 +134,16 @@ class _GamesAddViewState extends State<GamesAddView> {
                     padding: EdgeInsets.only(
                       top: height / 140,
                     ),
-                    child: SizedBox(
-                        height: height / 14,
-                        child: ReusableTextField(
-                          controller: imageURLController,
-                          num: 1,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Required Image URL';
-                            }
-                            return null;
-                          },
-                        )),
+                    child: ReusableTextField(
+                      controller: imageURLController,
+                      num: 1,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required Image URL';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                   SizedBox(
                     height: height / 20,
@@ -177,16 +171,13 @@ class _GamesAddViewState extends State<GamesAddView> {
                     height: height / 20,
                   ),
                   HeadingText(text: 'Category', textSize: textSize),
-                  SizedBox(
-                    height: height / 14,
-                    child: GameCategoryDropdown(
-                      selectedValue: selectedValue,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedValue = value as String;
-                        });
-                      },
-                    ),
+                  GameCategoryDropdown(
+                    selectedValue: selectedValue,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedValue = value as String;
+                      });
+                    },
                   ),
                   SizedBox(
                     height: height / 24,

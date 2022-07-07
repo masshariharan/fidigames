@@ -22,9 +22,8 @@ class ReusableTextField extends StatelessWidget {
         style: const TextStyle(color: AppColor.primaryTextColor),
         cursorColor: AppColor.primaryBackgroundColor,
         decoration: textFieldDecoration.copyWith(
-            hintText: text,
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 0, horizontal: 5)));
+          hintText: text,
+        ));
   }
 }
 
