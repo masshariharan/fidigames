@@ -1,9 +1,9 @@
-import 'package:fidigames/model/game_add_model.dart';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:logger/logger.dart';
+
 
 class GameAddService {
   String gameAddURL = 'https://fidigamesapi.herokuapp.com/games';

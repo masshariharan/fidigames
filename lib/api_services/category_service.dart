@@ -1,8 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
+
+import 'package:fidigames/model/category_gamelist_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CategoryService {
@@ -14,17 +15,24 @@ class CategoryService {
       'https://fidigamesapi.herokuapp.com/games/category/$categoryName',
     );
 
-    final response = await http.get(
-      url,
-      headers: {
-        'Content-Type': 'application/json',
-        'accept': 'application/json',
-        'api-key': token,
-      },
-    );
+   
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'accept': 'application/json',
+          'api-key': token,
+        },
+      );
 
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    }
+      if (response.statusCode == 200) {
+        CategoryGameListModel categoryGameData =
+            CategoryGameListModel.fromJson(jsonDecode(response.body));
+
+        //Logger().wtf(categoryGameData.categoryData![0].gameName);
+
+        return categoryGameData.categoryData;
+      }
+    
   }
 }

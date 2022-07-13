@@ -1,27 +1,26 @@
-class GameListModel {
-  final String? message;
-  final List<GameDetail>? data;
+class CategoryGameListModel {
+  final List<CategoryGameDetail>? categoryData;
 
-  const GameListModel({
-    this.message,
-    this.data,
+  const CategoryGameListModel({
+    this.categoryData,
   });
 
-  factory GameListModel.fromJson(Map<String, dynamic> json) {
-    var list = json["data"] as List;
-    List<GameDetail>? dataList = list
-        .map((i) => i == null ? null : GameDetail.fromJson(i))
-        .cast<GameDetail>()
+  factory CategoryGameListModel.fromJson(List<dynamic> json) {
+    List<CategoryGameDetail>? categoryDataList = json
+        .map((i) => i == null ? null : CategoryGameDetail.fromJson(i))
+        .cast<CategoryGameDetail>()
         .toList();
 
-    return GameListModel(
-      message: json["message"],
-      data: dataList,
+    return CategoryGameListModel(
+      categoryData: categoryDataList,
     );
+
+    // List<CategoryGameDetail> categoryList =
+    //     json.map((i) => CategoryGameDetail.fromJson(i)).toList();
   }
 }
 
-class GameDetail {
+class CategoryGameDetail {
   final int? id;
   final String? gameName;
   final String? gameDescription;
@@ -32,7 +31,7 @@ class GameDetail {
   int? likesCount;
   final String? imageURL;
 
-  GameDetail({
+  CategoryGameDetail({
     this.id,
     this.gameName,
     this.gameDescription,
@@ -44,8 +43,8 @@ class GameDetail {
     this.imageURL,
   });
 
-  factory GameDetail.fromJson(Map<String, dynamic> json) {
-    return GameDetail(
+  factory CategoryGameDetail.fromJson(Map<String, dynamic> json) {
+    return CategoryGameDetail(
       id: json["id"],
       gameName: json["game_name"],
       gameDescription: json["game_description"],

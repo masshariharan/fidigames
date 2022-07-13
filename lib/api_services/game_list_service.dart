@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:fidigames/model/game_list_model.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GameListService {
@@ -20,7 +21,8 @@ class GameListService {
     );
 
     if (response.statusCode == 200) {
-      var gameData = GameListModel.fromJson(jsonDecode(response.body));
+      GameListModel gameData =
+          GameListModel.fromJson(jsonDecode(response.body));
 
       return gameData.data;
     }

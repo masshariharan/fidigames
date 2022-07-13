@@ -1,4 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:fidigames/model/category_gamelist_model.dart';
+import 'package:fidigames/model/game_list_model.dart';
 import 'package:fidigames/themes/colors/colors.dart';
 import 'package:fidigames/themes/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -128,32 +130,20 @@ class _ReusableDropdownButtonState extends State<ReusableDropdownButton> {
   }
 }
 
-class ReusableCard extends StatefulWidget {
-  const ReusableCard(
-      {Key? key,
-      this.image,
-      this.title,
-      this.content,
-      this.n1,
-      this.n2,
-      this.likesCount,
-      this.iconWidget})
+class GamesDataCard extends StatefulWidget {
+  const GamesDataCard(
+      {Key? key, this.dataList, this.onTapLikeCount, this.likeColor})
       : super(key: key);
 
-  final Widget? image;
-  final String? title;
-  final String? content;
-  final int? n1;
-  final int? n2;
-  final int? likesCount;
-  // final void Function()? onPressed;
-  final Widget? iconWidget;
+  final GameDetail? dataList;
+  final void Function()? onTapLikeCount;
+  final Color? likeColor;
 
   @override
-  State<ReusableCard> createState() => _ReusableCardState();
+  State<GamesDataCard> createState() => _GamesDataCardState();
 }
 
-class _ReusableCardState extends State<ReusableCard> {
+class _GamesDataCardState extends State<GamesDataCard> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -182,24 +172,30 @@ class _ReusableCardState extends State<ReusableCard> {
                     child: SizedBox(
                         height: height / 8.9,
                         width: width / 4.9,
-                        child: widget.image),
+                        child: Image.network(
+                          '${widget.dataList!.imageURL}',
+                          fit: BoxFit.fill,
+                        )),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(right: width / 24),
+                  padding: EdgeInsets.only(
+                      left: width / 14, top: height / 97, right: width / 24),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // IconButton(
-                      //     onPressed: widget.onPressed,
-                      //     icon: Icon(
-                      //       Icons.favorite_border,
-                      //       size: textSize * 16,
-                      //       color: AppColor.primaryTextColor,
-                      //     )),
-                      widget.iconWidget!,
+                      GestureDetector(
+                          onTap: widget.onTapLikeCount,
+                          child: Icon(
+                            Icons.favorite,
+                            color: widget.likeColor,
+                            size: textSize * 16,
+                          )),
+                      SizedBox(
+                        width: width / 34,
+                      ),
                       Text(
-                        '${widget.likesCount}',
+                        '${widget.dataList!.likesCount}',
                         style: textStyle.copyWith(
                             fontWeight: FontWeight.w300,
                             fontSize: textSize * 12),
@@ -217,12 +213,12 @@ class _ReusableCardState extends State<ReusableCard> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.title!,
+                    Text(widget.dataList!.gameName!,
                         style: textStyle.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: textSize * 18)),
                     SizedBox(height: height / 130),
-                    Text(widget.content!,
+                    Text(widget.dataList!.gameDescription!,
                         maxLines: 2,
                         style: textStyle.copyWith(
                             fontSize: textSize * 10,
@@ -277,7 +273,168 @@ class _ReusableCardState extends State<ReusableCard> {
                               width: height / 130,
                             ),
                             Text(
-                              '${widget.n1} - ${widget.n2} Players',
+                              '${widget.dataList!.minP} - ${widget.dataList!.maxP} Players',
+                              style: textStyle.copyWith(
+                                  fontSize: textSize * 12,
+                                  fontWeight: FontWeight.w300),
+                            )
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CategoryGamesCard extends StatefulWidget {
+  const CategoryGamesCard(
+      {Key? key, this.dataList, this.onTapLikeCount, this.likeColor})
+      : super(key: key);
+
+  final CategoryGameDetail? dataList;
+  final void Function()? onTapLikeCount;
+  final Color? likeColor;
+
+  @override
+  State<CategoryGamesCard> createState() => _CategoryGamesCardState();
+}
+
+class _CategoryGamesCardState extends State<CategoryGamesCard> {
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double textSize = MediaQuery.textScaleFactorOf(context);
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: height / 71),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColor.textFieldBackgrounColor,
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: width / 24, top: height / 47, right: width / 24),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: SizedBox(
+                        height: height / 8.9,
+                        width: width / 4.9,
+                        child: Image.network(
+                          '${widget.dataList!.imageURL}',
+                          fit: BoxFit.fill,
+                        )),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: width / 14, top: height / 97, right: width / 24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                          onTap: widget.onTapLikeCount,
+                          child: Icon(
+                            Icons.favorite,
+                            color: widget.likeColor,
+                            size: textSize * 16,
+                          )),
+                      SizedBox(width: width / 34),
+                      Text(
+                        '${widget.dataList!.likesCount}',
+                        style: textStyle.copyWith(
+                            fontWeight: FontWeight.w300,
+                            fontSize: textSize * 12),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(
+                    top: height / 47, right: width / 24, bottom: height / 47),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(widget.dataList!.gameName!,
+                        style: textStyle.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: textSize * 18)),
+                    SizedBox(height: height / 130),
+                    Text(widget.dataList!.gameDescription!,
+                        maxLines: 2,
+                        style: textStyle.copyWith(
+                            fontSize: textSize * 10,
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.w300)),
+                    SizedBox(
+                      height: height / 180,
+                    ),
+                    Row(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                              side: MaterialStateProperty.all(const BorderSide(
+                                  color: AppColor.buttonBackgroundColor)),
+                              backgroundColor: MaterialStateProperty.all(
+                                  AppColor.buttonTextColor),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              )),
+                              minimumSize: MaterialStateProperty.all(
+                                  const Size(70, 30))),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.play_arrow,
+                                color: AppColor.primaryTextColor,
+                                size: textSize * 17,
+                              ),
+                              Text(
+                                'Play',
+                                style: textStyle.copyWith(
+                                    fontSize: textSize * 11,
+                                    fontWeight: FontWeight.w100),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: width / 18),
+                              child: Icon(
+                                Icons.person,
+                                color: AppColor.primaryTextColor,
+                                size: textSize * 15,
+                              ),
+                            ),
+                            SizedBox(
+                              width: height / 130,
+                            ),
+                            Text(
+                              '${widget.dataList!.minP} - ${widget.dataList!.maxP} Players',
                               style: textStyle.copyWith(
                                   fontSize: textSize * 12,
                                   fontWeight: FontWeight.w300),
@@ -472,11 +629,11 @@ class CountName extends StatelessWidget {
   }
 }
 
-class HeadingText extends StatelessWidget {
-  const HeadingText({Key? key, required this.textSize, required this.text})
+class CustomText extends StatelessWidget {
+  const CustomText({Key? key, required this.textSize, required this.text})
       : super(key: key);
 
-  final double textSize;
+  final double? textSize;
   final String text;
 
   @override
@@ -484,7 +641,7 @@ class HeadingText extends StatelessWidget {
     return Text(
       text,
       style: textStyle.copyWith(
-          fontSize: textSize * 12, fontWeight: FontWeight.w400),
+          fontSize: textSize!, fontWeight: FontWeight.w400),
     );
   }
 }

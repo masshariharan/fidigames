@@ -1,7 +1,7 @@
 import 'package:fidigames/api_services/game_add_service.dart';
 import 'package:fidigames/screens/fidigames_list.dart';
 import 'package:fidigames/themes/colors/colors.dart';
-import 'package:fidigames/themes/styles/styles.dart';
+
 import 'package:fidigames/widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -59,20 +59,18 @@ class _GamesAddViewState extends State<GamesAddView> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: width / 24),
-                            child: Text(
-                              'Add a Game',
-                              style: textStyle.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: textSize * 20),
-                            ),
-                          ),
+                              padding: EdgeInsets.only(left: width / 24),
+                              child:
+                                  
+                                  CustomText(
+                                      text: 'Add a Game',
+                                      textSize: textSize * 20)),
                         ],
                       )),
                   SizedBox(
                     height: height / 29,
                   ),
-                  HeadingText(text: 'Name of the Game', textSize: textSize),
+                  CustomText(text: 'Name of the Game', textSize: textSize * 12),
                   Padding(
                     padding: EdgeInsets.only(
                       top: height / 140,
@@ -91,7 +89,7 @@ class _GamesAddViewState extends State<GamesAddView> {
                   SizedBox(
                     height: height / 29,
                   ),
-                  HeadingText(text: 'Description', textSize: textSize),
+                  CustomText(text: 'Description', textSize: textSize * 12),
                   Padding(
                     padding: EdgeInsets.only(
                       top: height / 140,
@@ -110,7 +108,7 @@ class _GamesAddViewState extends State<GamesAddView> {
                   SizedBox(
                     height: height / 29,
                   ),
-                  HeadingText(text: 'Game URL', textSize: textSize),
+                  CustomText(text: 'Game URL', textSize: textSize * 12),
                   Padding(
                     padding: EdgeInsets.only(
                       top: height / 140,
@@ -129,7 +127,7 @@ class _GamesAddViewState extends State<GamesAddView> {
                   SizedBox(
                     height: height / 20,
                   ),
-                  HeadingText(text: 'Image URL', textSize: textSize),
+                  CustomText(text: 'Image URL', textSize: textSize * 12),
                   Padding(
                     padding: EdgeInsets.only(
                       top: height / 140,
@@ -148,7 +146,7 @@ class _GamesAddViewState extends State<GamesAddView> {
                   SizedBox(
                     height: height / 20,
                   ),
-                  HeadingText(text: 'Players Count', textSize: textSize),
+                  CustomText(text: 'Players Count', textSize: textSize * 12),
                   Padding(
                     padding: EdgeInsets.only(top: height / 36),
                     child: Row(
@@ -170,7 +168,7 @@ class _GamesAddViewState extends State<GamesAddView> {
                   SizedBox(
                     height: height / 20,
                   ),
-                  HeadingText(text: 'Category', textSize: textSize),
+                  CustomText(text: 'Category', textSize: textSize * 12),
                   GameCategoryDropdown(
                     selectedValue: selectedValue,
                     onChanged: (value) {

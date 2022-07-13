@@ -82,17 +82,14 @@ class _LoginViewState extends State<LoginView> {
                 SizedBox(
                   height: height / 8.65,
                 ),
-                Text(
-                  'Fidigames',
-                  style: textStyle.copyWith(fontSize: textSize * 32),
-                ),
+                
+                CustomText(textSize: textSize*32, text: 'Fidigames'),
                 SizedBox(
                   height: height / 5.83,
                 ),
-                Text(
-                  'Log In',
-                  style: textStyle.copyWith(fontSize: textSize * 18),
-                ),
+              
+                CustomText(textSize: textSize* 18, text: 'Log In'),
+                
                 SizedBox(
                   height: height / 18.4,
                 ),
